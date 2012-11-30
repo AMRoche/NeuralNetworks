@@ -17,7 +17,7 @@ public class main {
     public static node alpha = new node("alpha", "sigmoid", 0, 0);
     public static node gamma = new node("gamma", "sigmoid", 0, 0);
     public static node delta = new node("delta", "sigmoid", 0, 0);
-    public static node sum = new node("final", "summation", 1, 0);
+    public static node sum = new node("sum", "summation", 1, 0);
     public static node x1 = new node("x1", "none", -1, 0);
     public static node x2 = new node("x2", "none", -1, 0);
     public static connector source1Alpha = new connector(x1, alpha, -0.15, 0);
