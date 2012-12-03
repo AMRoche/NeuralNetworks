@@ -12,7 +12,7 @@ import java.math.*;
  */
 public class node {
     public String nodeName;
-    public float weight;
+    public double weight;
     public String calcType;
     public double tier;
     public double error;

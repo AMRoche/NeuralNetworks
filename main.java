@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class main {
     //calc type, level, output
-
+ //   private int[] errormin = new int[2];
     public static node alpha = new node("alpha", "sigmoid", 0, 0);
     public static node gamma = new node("gamma", "sigmoid", 0, 0);
     public static node delta = new node("delta", "sigmoid", 0, 0);
@@ -34,7 +34,7 @@ public class main {
     public static ArrayList<connector> connectors = new <connector>ArrayList();
     public static ArrayList<node> nodes = new <node>ArrayList();
     static double tiermax = -1;
-
+    public static double minError[] = {0.000,1000.000};
     /**
      * @param args the command line arguments
      */
@@ -113,11 +113,15 @@ public class main {
         }
     }
 
-    public static void backPass(int tests) {
+    public static void backPass(int tests, int gens) {
         for (int tiers = (int) tiermax; tiers >= -1; tiers--) {
             for (int nSize = 0; nSize < nodes.size(); nSize++) {
                 if (((node) (nodes.get(nSize))).tier == tiers && tiers == tiermax) {
                     ((node) (nodes.get(nSize))).error = learnExamples[tests][2] - (nodes.get(nSize)).output;
+                    if((((node) (nodes.get(nSize))).error * ((node) (nodes.get(nSize))).error) < minError[1]){
+                        minError[0] = (double)gens;
+                        minError[1] = ((double)((node) (nodes.get(nSize))).error * (double)((node) (nodes.get(nSize))).error);
+                    }
                 }
                 
                 else if (((node) (nodes.get(nSize))).tier == tiers && tiers < tiermax && tiers > -1) {
@@ -158,9 +162,10 @@ public class main {
 //replace -1 with tiermax
                 forwardPass(tests);
                 //Forward pass is up to this point. Outputs have all been set. Now for back-passes, error calculations and weight mods.
-                backPass(tests);
-
+                backPass(tests , generations);
+              //  sum.error;
             }
         }
+    System.out.println("Min Error at [Generation, Error]; "+java.util.Arrays.toString(minError));
     }
 }
